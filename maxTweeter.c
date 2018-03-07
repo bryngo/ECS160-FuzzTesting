@@ -4,14 +4,12 @@
 
 #include <stdio.h>
 #include <memory.h>
-#include <string.h>
 #include <stdlib.h>
 
 typedef struct  {
   char name[50]; // max username length can be no longer than 50 characters
   int tweetCount; // number of tweets this user has tweeted
 } User;
-
 
 
 unsigned int hash(unsigned char *str) {
@@ -53,7 +51,6 @@ int getNameCol(char *header) {
 } // returns the column number for the header
 
 void insert(char * user, User* userArray) {
-
 
   // compute the hash of the user
   unsigned int index = hash((unsigned char*)user);
