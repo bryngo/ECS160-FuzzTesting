@@ -6,6 +6,10 @@
 #include <memory.h>
 #include <stdlib.h>
 
+/// TODO: Write a function to count commas in a given line
+/// TODO: Write a function to determine a valid header
+/// TODO: Check that our program doesn't crash in empty csv files
+
 typedef struct  {
   char name[50]; // max username length can be no longer than 50 characters
   int tweetCount; // number of tweets this user has tweeted
@@ -67,6 +71,7 @@ void insert(char * user, User* userArray) {
     // else, we need to start probing
   } else if(userArray[index].tweetCount != 0) {
 
+    // linear probing
     while(userArray[index].tweetCount != 0) {
       index += 1;
 
