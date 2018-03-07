@@ -15,7 +15,6 @@ typedef struct  {
   int tweetCount; // number of tweets this user has tweeted
 } User;
 
-
 unsigned int hash(unsigned char *str) {
   unsigned int hash = 5381;
   int c;
@@ -102,6 +101,20 @@ void init(User* userArray) {
     strcpy(userArray[i].name, "");
     userArray[i].tweetCount = 0;
   }
+} // zero out all the values in our user array
+
+int getColCount(char *line) {
+  int num = 0;
+  char* tok;
+
+  for (tok = strtok(line, ",");tok && *tok;tok = strtok(NULL, ",\n"), num+=1) { }
+
+  return num;
+} // returns the number of columns in the line
+
+void error() {
+  printf("Invali Input Format\n");
+  exit(1);
 }
 
 int main(int argc, char**argv) {
@@ -116,7 +129,7 @@ int main(int argc, char**argv) {
   size_t len = 0;
   ssize_t read;
 
-  int nameColumn;
+  int nameColumn, headerCols, numCols;
 
   // for temp use
   char filepath[100];
@@ -128,28 +141,31 @@ int main(int argc, char**argv) {
   fp=fopen(filepath, "r");
 
   // if we got a bad file
-  if(fp == NULL) {
-    printf("Invalid Input Format\n");
-    exit(1);
-  }
+  if(fp == NULL) { error(); }
 
   /// TODO: Check that we actually got a csv file
 
   // get the header line, and find out where name column is
   getline(&line, &len, fp);
-  nameColumn = getNameCol(line); /// TODO: if this number is larger than the number of columns, invalid input
 
-  if(nameColumn == -1) {
-    printf("Invalid Input Format\n");
-    exit(1);
-  }
+  headerCols = getColCount(line);
+  nameColumn = getNameCol(line);
 
-  userArray[0].tweetCount = 5;
+  // if the header column is found larger than the number of columns, or no `name` column found
+  if(nameColumn > headerCols || nameColumn == -1) { error(); }
 
+  // while there are lines in the file
   while ((read = getline(&line, &len, fp)) != -1) {
+
+    numCols = getColCount(line);
+
+    // if the number of columns found in the line
+    if(numCols != headerCols) { error(); }
+
     insert(getfield(line, nameColumn), userArray);
   }
 
+  // sort the users in decreasing order, based on tweet count
   qsort(userArray, sizeof(userArray)/sizeof(*userArray), sizeof(*userArray), comp);
 
   int printIndex = 0;
@@ -159,4 +175,4 @@ int main(int argc, char**argv) {
   // close the file
   fclose(fp);
 
-}
+} // main f(x)
