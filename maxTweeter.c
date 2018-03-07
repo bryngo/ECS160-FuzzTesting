@@ -53,6 +53,44 @@ int getNameCol(char *header) {
   return -1;
 } // returns the column number for the header
 
+int comp(const void *user1, const void *user2) {
+
+  User* tweeter1 = (User*)user1;
+  User* tweeter2 = (User*)user2;
+
+  if(tweeter1->tweetCount < tweeter2->tweetCount) return 1;
+  if(tweeter1->tweetCount > tweeter2->tweetCount) return -1;
+  return 0;
+} // sorts users based on tweet count
+
+int getColCount(char *line) {
+  int num = 0;
+  char* tok;
+
+  char linecpy[500];
+  strcpy(linecpy, line);
+
+
+  for (tok = strtok(linecpy, ",");tok && *tok;tok = strtok(NULL, ",\n"), num+=1) { }
+
+  return num;
+} // returns the number of columns in the line
+
+void init(User* userArray) {
+
+  int i;
+
+  for(i = 0; i < 20000; i += 1) {
+    strcpy(userArray[i].name, "");
+    userArray[i].tweetCount = 0;
+  }
+} // zero out all the values in our user array
+
+void error() {
+  printf("Invalid Input Format\n");
+  exit(1);
+} // prints error messages and exits the program
+
 void insert(char * user, User* userArray) {
 
   // compute the hash of the user
@@ -83,45 +121,10 @@ void insert(char * user, User* userArray) {
 
 } // increments a user's tweet count
 
-int comp(const void *user1, const void *user2) {
-
-  User* tweeter1 = (User*)user1;
-  User* tweeter2 = (User*)user2;
-
-  if(tweeter1->tweetCount < tweeter2->tweetCount) return 1;
-  if(tweeter1->tweetCount > tweeter2->tweetCount) return -1;
-  return 0;
-} // sorts users based on tweet count
-
-void init(User* userArray) {
-
-  int i;
-
-  for(i = 0; i < 20000; i += 1) {
-    strcpy(userArray[i].name, "");
-    userArray[i].tweetCount = 0;
-  }
-} // zero out all the values in our user array
-
-int getColCount(char *line) {
-  int num = 0;
-  char* tok;
-
-  for (tok = strtok(line, ",");tok && *tok;tok = strtok(NULL, ",\n"), num+=1) { }
-
-  return num;
-} // returns the number of columns in the line
-
-void error() {
-  printf("Invali Input Format\n");
-  exit(1);
-}
-
 int main(int argc, char**argv) {
 
   // holds array of users
   User userArray[20000];
-
   init(userArray);
 
   // variables used to read file lines
