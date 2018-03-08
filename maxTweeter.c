@@ -6,10 +6,6 @@
 #include <memory.h>
 #include <stdlib.h>
 
-/// TODO: Write a function to count commas in a given line
-/// TODO: Write a function to determine a valid header
-/// TODO: Check that our program doesn't crash in empty csv files
-
 typedef struct  {
   char name[50]; // max username length can be no longer than 50 characters
   int tweetCount; // number of tweets this user has tweeted
@@ -132,11 +128,11 @@ int main(int argc, char**argv) {
   size_t len = 0;
   ssize_t read;
 
-  int nameColumn, headerCols, numCols;
+  int nameColumn, headerCols, numCols, numRows = 1;
 
   // for temp use
   char filepath[100];
-  strcpy(filepath, "/Users/Bryan1/Desktop/160/projects/p4/cl-tweets-short.csv");
+  strcpy(filepath, "/Users/Bryan1/Desktop/160/projects/p4/testFiles/header-no-name.csv");
 
   // open the file
   FILE *fp;
@@ -145,8 +141,6 @@ int main(int argc, char**argv) {
 
   // if we got a bad file
   if(fp == NULL) { error(); }
-
-  /// TODO: Check that we actually got a csv file
 
   // get the header line, and find out where name column is
   getline(&line, &len, fp);
@@ -159,12 +153,14 @@ int main(int argc, char**argv) {
 
   // while there are lines in the file
   while ((read = getline(&line, &len, fp)) != -1) {
+    numRows += 1;
+
+    if(numRows >= 20000) { error(); }
 
     numCols = getColCount(line);
 
     // if the number of columns found in the line
     if(numCols != headerCols) { error(); }
-
     insert(getfield(line, nameColumn), userArray);
   }
 
