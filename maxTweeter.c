@@ -34,8 +34,10 @@ char* getfield(char* line, int num ) {
 int getNameCol(char *header) {
   int colNum = 0;
 
-  char target[50];
+
+  char target[50], target2[50];
   strcpy(target, "\"name\"");
+  strcpy(target2, "name");
 
   const char* tok;
 
@@ -43,7 +45,7 @@ int getNameCol(char *header) {
   {
 
     // we found the name column
-    if (strcmp(tok, target) == 0)
+    if (strcmp(tok, target) == 0 || strcmp(tok, target2) == 0)
       return colNum;
   }
   return -1;
@@ -131,13 +133,17 @@ int main(int argc, char**argv) {
   int nameColumn, headerCols, numCols, numRows = 1;
 
   // for temp use
-  char filepath[100];
-  strcpy(filepath, "/Users/Bryan1/Desktop/160/projects/p4/testFiles/header-no-name.csv");
+  char *filepath = "./afl/in/";
+
+  char* name_with_extension;
+  name_with_extension = malloc(strlen(filepath)+1+strlen(argv[1]));
+  strcpy(name_with_extension, filepath); /* copy name into the new var */
+  strcat(name_with_extension, argv[1]); /* add the extension */
 
   // open the file
   FILE *fp;
   printf("Opening file: %s\n", argv[1]);
-  fp=fopen(filepath, "r");
+  fp=fopen(name_with_extension, "r");
 
   // if we got a bad file
   if(fp == NULL) { error(); }
