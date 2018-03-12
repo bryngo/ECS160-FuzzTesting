@@ -143,7 +143,7 @@ int main(int argc, char**argv) {
   // open the file
   FILE *fp;
   printf("Opening file: %s\n", argv[1]);
-  fp=fopen(argv[1], "r");
+  fp=fopen(name_with_extension, "r");
 
   // if we got a bad file
   if(fp == NULL) { error(); }
