@@ -3,5 +3,5 @@ project(p4)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-set(SOURCE_FILES maxTweeter.c)
+set(SOURCE_FILES Warmup/test-hw2.c)
 add_executable(p4 ${SOURCE_FILES})

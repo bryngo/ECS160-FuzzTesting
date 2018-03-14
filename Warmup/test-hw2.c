@@ -58,7 +58,7 @@ int main(int argc, char** argv)
   char *thisguy; 
   int thispos;
   int fpos = -1; 
-  float lines = 0;
+  float lines = 1;
   int twCount=0;
   int toppers[25000];
   int i,big;
@@ -69,6 +69,7 @@ int main(int argc, char** argv)
   fpos = findField(line,"\"name\"",',');
  
   while (fgets(line, 1024, stream)) {
+    lines += 1;
     thisguy = strdup(getField(line,9));
     thispos = findTweeter(tweeters,thisguy,twCount);
     if(thispos <0) {
