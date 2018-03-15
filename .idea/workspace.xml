@@ -12,6 +12,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3283962f-0b16-4c9a-8c05-f1518f6006be" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Warmup/id:000000,sig:11,src:000000,op:flip1,pos:310.csv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Warmup/id:000002,sig:11,src:000000,op:flip1,pos:892.csv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Warmup/id:000003,sig:11,src:000000,op:flip1,pos:1497.csv" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="p4.iws" />
@@ -509,12 +512,12 @@
       <workItem from="1520924230937" duration="4654000" />
       <workItem from="1521004061562" duration="3482000" />
       <workItem from="1521142659586" duration="446000" />
-      <workItem from="1521146622743" duration="1593000" />
+      <workItem from="1521146622743" duration="1675000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="28592000" />
+    <option name="totallyTimeSpent" value="28674000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
